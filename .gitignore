@@ -1,0 +1,59 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build and packaging
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Generated benchmark results
+benchmarks/results/
+reports/generated/
+
+# Local databases and large model files
+*.db
+*.sqlite
+*.sqlite3
+*.h5
+*.hdf5
+*.onnx
+*.pt
+*.pth
+*.pkl
+*.joblib
+
+# Keep sample data and documentation tracked
+!data/sample/
+!data/sample/README.md
