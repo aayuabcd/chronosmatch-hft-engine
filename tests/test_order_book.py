@@ -61,3 +61,50 @@ def test_duplicate_order_id():
 
     with pytest.raises(ValueError):
         book.submit_order(Order("B1", "BUY", 98, 2, 2))
+
+def test_fifo_priority_for_orders_at_same_price():
+    book = OrderBook()
+    book.submit_order(Order("S1", "SELL", 100, 2, 1))
+    book.submit_order(Order("S2", "SELL", 100, 2, 2))
+
+    trades = book.submit_order(Order("B1", "BUY", 100, 3, 3))
+
+    assert len(trades) == 2
+    assert trades[0].sell_order_id == "S1"
+    assert trades[0].quantity == 2
+    assert trades[1].sell_order_id == "S2"
+    assert trades[1].quantity == 1
+
+
+def test_non_crossing_orders_do_not_match():
+    book = OrderBook()
+    book.submit_order(Order("B1", "BUY", 99, 5, 1))
+
+    trades = book.submit_order(Order("S1", "SELL", 101, 5, 2))
+
+    assert trades == []
+    assert book.best_bid() == 99
+    assert book.best_ask() == 101
+
+
+def test_cancel_one_order_preserves_other_orders():
+    book = OrderBook()
+    book.submit_order(Order("B1", "BUY", 99, 5, 1))
+    book.submit_order(Order("B2", "BUY", 99, 3, 2))
+
+    assert book.cancel_order("B1") is True
+    assert book.best_bid() == 99
+    assert "B2" in book.orders
+    assert "B1" not in book.orders
+
+
+def test_sell_order_matches_at_resting_buy_price():
+    book = OrderBook()
+    book.submit_order(Order("B1", "BUY", 105, 4, 1))
+
+    trades = book.submit_order(Order("S1", "SELL", 100, 2, 2))
+
+    assert len(trades) == 1
+    assert trades[0].price == 105
+    assert trades[0].quantity == 2
+    assert book.orders["B1"].remaining == 2
