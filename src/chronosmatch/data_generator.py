@@ -1,34 +1,34 @@
 
-import pytest
+"""Generate reproducible synthetic orders for ChronosMatch."""
 
-from src.chronosmatch.data_generator import generate_orders
+import random
+from typing import Iterator
 
-
-def test_generates_requested_number_of_orders():
-    orders = list(generate_orders(100))
-    assert len(orders) == 100
+from src.chronosmatch.order_book import Order, Side
 
 
-def test_generated_orders_are_reproducible():
-    first = list(generate_orders(20, seed=7))
-    second = list(generate_orders(20, seed=7))
+def generate_orders(
+    count: int,
+    seed: int = 42,
+    start_price: int = 10_000,
+) -> Iterator[Order]:
+    """Yield synthetic limit orders with reproducible values."""
+    if count < 0:
+        raise ValueError("count cannot be negative.")
+    if start_price <= 0:
+        raise ValueError("start_price must be positive.")
 
-    assert first == second
+    rng = random.Random(seed)
 
+    for index in range(count):
+        side: Side = rng.choice(["BUY", "SELL"])
+        price = start_price + rng.randint(-20, 20)
+        quantity = rng.randint(1, 100)
 
-def test_order_fields_are_valid():
-    orders = list(generate_orders(100))
-
-    assert len({order.order_id for order in orders}) == 100
-    assert all(order.side in ("BUY", "SELL") for order in orders)
-    assert all(order.price > 0 for order in orders)
-    assert all(order.quantity > 0 for order in orders)
-
-
-def test_negative_count_is_rejected():
-    with pytest.raises(ValueError):
-        list(generate_orders(-1))
-
-
-def test_zero_count_returns_no_orders():
-    assert list(generate_orders(0)) == []
+        yield Order(
+            order_id=f"ORD-{index + 1:08d}",
+            side=side,
+            price=price,
+            quantity=quantity,
+            timestamp=index,
+        )
