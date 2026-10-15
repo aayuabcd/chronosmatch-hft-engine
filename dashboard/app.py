@@ -139,7 +139,7 @@ with st.sidebar:
     price = st.number_input("Limit price", min_value=1, value=10000, step=5)
     quantity = st.number_input("Quantity", min_value=1, value=10, step=1)
 
-    if st.button("＋ Submit order", use_container_width=True, type="primary"):
+    if st.button("＋ Submit order", width='stretch', type="primary"):
         new_id = submit_order(side, price, quantity)
         st.success(f"Accepted: {new_id}")
         st.rerun()
@@ -147,7 +147,7 @@ with st.sidebar:
     st.divider()
     st.markdown("#### Market controls")
 
-    if st.button("Load demo market", use_container_width=True):
+    if st.button("Load demo market", width='stretch'):
         if not book.orders and not book.trades:
             load_demo()
             st.success("Demo orders loaded.")
@@ -155,7 +155,7 @@ with st.sidebar:
             st.warning("Reset the current simulation first.")
         st.rerun()
 
-    if st.button("Reset simulation", use_container_width=True):
+    if st.button("Reset simulation", width='stretch'):
         st.session_state.book = OrderBook()
         st.session_state.next_id = 1
         st.session_state.benchmark_output = None
@@ -232,7 +232,7 @@ with depth_col:
     fig.update_layout(barmode="group", xaxis_title="Limit price",
                       yaxis_title="Remaining quantity")
     if bids or asks:
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     else:
         st.info("Load the demo market or submit orders to see market depth.")
 
@@ -262,7 +262,7 @@ with analytics_col:
         yaxis=dict(gridcolor="#202d39", title="Quantity"),
         xaxis=dict(gridcolor="#202d39"),
     )
-    st.plotly_chart(imb_fig, use_container_width=True)
+    st.plotly_chart(imb_fig, width='stretch')
 
     st.markdown("### Execution-price history")
     if book.trades:
@@ -280,7 +280,7 @@ with analytics_col:
         ))
         price_fig.update_layout(xaxis_title="Trade sequence",
                                 yaxis_title="Execution price", height=240)
-        st.plotly_chart(price_fig, use_container_width=True)
+        st.plotly_chart(price_fig, width='stretch')
     else:
         st.info("Execution-price history will appear after trades occur.")
 
@@ -306,7 +306,7 @@ with orders_tab:
             "Timestamp": o.timestamp,
         } for o in book.orders.values()]
 
-        st.dataframe(pd.DataFrame(order_rows), use_container_width=True,
+        st.dataframe(pd.DataFrame(order_rows), width='stretch',
                      hide_index=True)
 
         st.markdown("#### Cancel an order")
@@ -336,7 +336,7 @@ with trades_tab:
             "Executed quantity": t.quantity,
             "Notional value": t.price * t.quantity,
         } for i, t in enumerate(book.trades, start=1)])
-        st.dataframe(all_trades, use_container_width=True, hide_index=True)
+        st.dataframe(all_trades, width='stretch', hide_index=True)
         st.caption(f"{len(book.trades)} trades executed in this simulation.")
     else:
         st.info("No executions yet. Submit a crossing order to create a trade.")
@@ -401,3 +401,4 @@ color:#75889a;font:10px 'DM Mono',monospace">
 <span>EDUCATIONAL SIMULATION / NOT A LIVE EXCHANGE</span>
 </div>
 """, unsafe_allow_html=True)
+
