@@ -1,4 +1,4 @@
-﻿"""ChronosMatch Pro: interactive matching-engine trading terminal."""
+"""ChronosMatch Pro: interactive matching-engine trading terminal."""
 
 import sys
 import subprocess
@@ -75,6 +75,83 @@ div[data-testid="stDataFrame"]{border:1px solid #273746;border-radius:10px;overf
 div[data-testid="stTabs"] button{font-weight:600}
 hr{border-color:#263643}
 footer{visibility:hidden}#MainMenu{visibility:hidden}
+/* CHRONOSMATCH REVIEW VISIBILITY FIX */
+
+:root {
+    color-scheme: dark;
+}
+
+html, body, [data-testid="stAppViewContainer"] {
+    color: #F1F5F9 !important;
+}
+
+[data-testid="stSidebar"] {
+    background: #0C1420 !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4 {
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] .stCaption {
+    color: #D5E1EC !important;
+}
+
+[data-testid="stSidebar"] .eyebrow {
+    color: #56EAD5 !important;
+}
+
+[data-testid="stMetricLabel"] p,
+[data-testid="stMetricLabel"] {
+    color: #C1D1E0 !important;
+    font-weight: 700 !important;
+}
+
+[data-testid="stMetricValue"],
+[data-testid="stMetricValue"] * {
+    color: #FFFFFF !important;
+}
+
+[data-testid="stAppViewContainer"] h1,
+[data-testid="stAppViewContainer"] h2,
+[data-testid="stAppViewContainer"] h3 {
+    color: #F8FAFC;
+}
+
+[data-testid="stAppViewContainer"] .hero h1 span {
+    color: #53EAD4 !important;
+}
+
+[data-testid="stAppViewContainer"] .eyebrow {
+    color: #53EAD4 !important;
+}
+
+.stCaption, [data-testid="stCaptionContainer"] {
+    color: #B6C7D8 !important;
+}
+
+[data-testid="stSidebar"] .stButton button {
+    color: #A7FFF0 !important;
+    border-color: #427C81 !important;
+}
+
+[data-testid="stSidebar"] .stButton button p {
+    color: #A7FFF0 !important;
+}
+
+[data-testid="stSidebar"] input {
+    color: #17212B !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] {
+    color: #E2E8F0 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
