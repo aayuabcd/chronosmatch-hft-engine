@@ -1,91 +1,150 @@
-# ChronosMatch â€” High-Frequency Trading Engine
+<div align="center">
 
-ChronosMatch is a Python-based educational prototype of a high-frequency trading (HFT) engine. It explores efficient order processing, limit order book management, market simulation, trade auditing, and performance measurement.
+# CHRONOSMATCH
 
-## Project Goals
+### BEYOND THE ORDER.
 
-- Implement a limit order book and order-matching engine.
-- Explore a ring buffer and memory-mapped data transfer.
-- Simulate market activity using asynchronous Python.
-- Measure throughput and order-processing latency.
-- Compare baseline and optimized implementations using reproducible benchmarks.
-- Record executed trades for audit and analysis.
-- Present performance metrics in an interactive dashboard.
+**An educational high-frequency trading simulation built around price–time priority.**
 
-## Planned Technology Stack
+![Python](https://img.shields.io/badge/Python-Matching_Engine-3776AB?logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-009688?logo=fastapi&logoColor=white) ![React](https://img.shields.io/badge/React-Cinematic_UI-20232A?logo=react&logoColor=61DAFB) ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Tests](https://img.shields.io/badge/Tests-19_Passing-8F476C)
 
-- Python 3.11
-- Cython for selected performance-critical components
-- `asyncio` for asynchronous simulation
-- `mmap` and `struct` for low-level data handling
-- SQLite for trade auditing
-- Streamlit and Plotly for performance visualization
-- pytest for automated testing
+**[Explore the code](https://github.com/aayuabcd/chronosmatch-hft-engine)** · **[API documentation](#rest-api)** · **[Run locally](#run-the-project)**
 
-## Project Structure
+</div>
 
-```text
-ChronosMatch/
-â”œâ”€â”€ src/chronosmatch/   # Core engine
-â”œâ”€â”€ tests/              # Automated tests
-â”œâ”€â”€ benchmarks/         # Benchmark scripts
-â”œâ”€â”€ data/sample/        # Small sample datasets
-â”œâ”€â”€ docs/               # Documentation and progress log
-â”œâ”€â”€ scripts/            # Utility scripts
-â”œâ”€â”€ dashboard/          # Performance dashboard
-â”œâ”€â”€ README.md
-â”œâ”€â”€ requirements.txt
-â”œâ”€â”€ pyproject.toml
-â””â”€â”€ .gitignore
+---
+
+## The Experience
+
+![ChronosMatch cinematic homepage](docs/homepage.png)
+
+A burgundy-and-rose-gold React experience introducing the core ideas behind an order-matching engine. Animated 3D graphics and an editorial interface accompany a working Python simulation.
+
+<table>
+<tr><td width="50%"><img src="docs/architecture.png" alt="Price–time priority architecture illustration" /></td><td width="50%"><img src="docs/terminal-preview.png" alt="React terminal preview, connection pending" /></td></tr>
+<tr><td align="center"><b>Matching principle</b></td><td align="center"><b>Terminal preview — integration pending</b></td></tr>
+</table>
+
+> **Simulation only:** ChronosMatch is an educational project. It does not connect to a live exchange or execute real financial transactions. The React terminal is currently a visual preview; the FastAPI backend is available separately.
+
+## What It Does
+
+- **Price–time priority:** better prices match first; orders at the same price follow FIFO order.
+- **Limit order matching:** simulated BUY and SELL orders interact through an in-memory order book.
+- **Partial fills and cancellations:** unfilled quantities can remain open until matched or cancelled.
+- **Trade records:** executed matches can be inspected and analyzed.
+- **REST endpoints:** FastAPI exposes order submission, order book, trade history, cancellation, and health checks.
+- **Two interfaces:** a cinematic React website and a separate Streamlit dashboard.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A[React / Vite website] --> B[Visual experience and terminal preview]
+    C[FastAPI REST API] --> D[Python order matching engine]
+    E[Streamlit dashboard] --> F[Simulation analysis and visualization]
+    D --> G[In-memory order book]
+    D --> H[Trade records]
 ```
 
-## Performance Evaluation
+**Current integration status:** The React frontend is not yet wired to the FastAPI endpoints. Run and demonstrate the API and React website separately.
 
-The project will measure order throughput and latency using reproducible workloads. Any performance comparisons will be based on actual runs and will document the test environment and methodology.
+## Technology
 
-## Current Status
+| Layer | Tools |
+|---|---|
+| Matching engine | Python, price–time priority, order-book data structures |
+| API | FastAPI, Pydantic, Uvicorn |
+| Frontend | React, Vite, JavaScript, CSS, Three.js / React Three Fiber |
+| Visualization | Streamlit |
+| Quality | pytest, Git, GitHub |
 
-Core implementation and automated testing completed.
+## REST API
 
-### Implemented Features
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/health` | API health |
+| `POST` | `/orders` | Submit simulated BUY or SELL order |
+| `GET` | `/orderbook` | View order book and open orders |
+| `GET` | `/trades` | View executed trades |
+| `DELETE` | `/orders/{order_id}` | Cancel an open order |
 
-- Price-time priority order matching engine
-- Limit order book with buy and sell orders
-- Partial fills and order cancellation
-- Market data generation
-- Market metrics and order book imbalance
-- Trade auditing with CSV export
-- Interactive Streamlit dashboard
-- Automated testing and performance benchmarking
+Example order request:
 
-### Latest Verified Results
+```json
+{
+  "side": "BUY",
+  "price": 100,
+  "quantity": 10
+}
+```
 
-- Automated tests: 19 passed
-- Orders processed: 100,000
-- Throughput: 340,001 orders/second
-- Elapsed time: 0.2941 seconds
-- Average reported latency: 2.71 microseconds
-- Trades executed: 78,453
+Orders and trades are **in memory** and reset when the API process restarts.
 
-### Run the Dashboard
+## Run the Project
 
-Run from the project root:
+### 1. Clone and set up Python
 
-`python -m streamlit run dashboard/app.py`
+```powershell
+git clone https://github.com/aayuabcd/chronosmatch-hft-engine.git
+cd chronosmatch-hft-engine
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m pip install fastapi uvicorn
+```
 
-### Run Tests
+### 2. Run the API
 
-`python -m pytest -v`
+```powershell
+python -m uvicorn api:app --host 127.0.0.1 --port 8765
+```
 
-### Run Benchmark
+Open **http://127.0.0.1:8765/docs** for interactive API documentation. Keep this terminal running.
 
-`python benchmarks/benchmark_order_book.py`
+### 3. Run the React website (new terminal)
 
-### Review Status
+```powershell
+cd frontend
+npm.cmd install
+npm.cmd run dev
+```
 
-Core features implemented and automated tests passing.
-Final interactive dashboard verification remains pending.
+Open **http://localhost:5173/**. On macOS/Linux, use `npm` instead of `npm.cmd`.
 
-## Disclaimer
+### 4. Run the Streamlit dashboard (optional, from repository root)
 
-This is an educational simulation, not a production trading system or financial advice. Simulated results do not guarantee real-world trading performance.
+```powershell
+python -m streamlit run dashboard/app.py
+```
+
+## Quality Checks
+
+```powershell
+python -m pytest -q
+cd frontend
+npm.cmd run build
+```
+
+**Most recent locally reported verification (12 Nov 2026):** 19 Python tests passed; React production build succeeded. The frontend build reported a non-blocking large-bundle warning.
+
+## Roadmap
+
+- [x] Python order-matching engine
+- [x] Automated matching-engine tests
+- [x] Streamlit dashboard
+- [x] Cinematic React experience
+- [x] FastAPI endpoints
+- [ ] Verify BUY/SELL API execution end to end
+- [ ] Connect the React terminal to FastAPI
+- [ ] Add live order-book and trade-history controls to the React UI
+
+---
+
+<div align="center">
+
+**CHRONOSMATCH · BUILT TO EXPLORE THE LOGIC BEHIND EVERY MATCH**
+
+Created by [Aayushi Suryawanshi](https://github.com/aayuabcd)
+
+</div>
