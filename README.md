@@ -1,14 +1,14 @@
-<div align="center">
+﻿<div align="center">
 
 # CHRONOSMATCH
 
 ### BEYOND THE ORDER.
 
-**An educational high-frequency trading simulation built around price–time priority.**
+**An educational high-frequency trading simulation built around priceâ€“time priority.**
 
-![Python](https://img.shields.io/badge/Python-Matching_Engine-3776AB?logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-009688?logo=fastapi&logoColor=white) ![React](https://img.shields.io/badge/React-Cinematic_UI-20232A?logo=react&logoColor=61DAFB) ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Tests](https://img.shields.io/badge/Tests-19_Passing-8F476C)
+![Python](https://img.shields.io/badge/Python-Matching_Engine-3776AB?logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-009688?logo=fastapi&logoColor=white) ![React](https://img.shields.io/badge/React-Professional_Dashboard-20232A?logo=react&logoColor=61DAFB) ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Tests](https://img.shields.io/badge/Tests-19_Passing-8F476C)
 
-**[Explore the code](https://github.com/aayuabcd/chronosmatch-hft-engine)** · **[API documentation](#rest-api)** · **[Run locally](#run-the-project)**
+**[Explore the code](https://github.com/aayuabcd/chronosmatch-hft-engine)** Â· **[API documentation](#rest-api)** Â· **[Run locally](#run-the-project)**
 
 </div>
 
@@ -16,20 +16,17 @@
 
 ## The Experience
 
-![ChronosMatch cinematic homepage](docs/homepage.png)
+
 
 A burgundy-and-rose-gold React experience introducing the core ideas behind an order-matching engine. Animated 3D graphics and an editorial interface accompany a working Python simulation.
 
-<table>
-<tr><td width="50%"><img src="docs/architecture.png" alt="Price–time priority architecture illustration" /></td><td width="50%"><img src="docs/terminal-preview.png" alt="React terminal preview, connection pending" /></td></tr>
-<tr><td align="center"><b>Matching principle</b></td><td align="center"><b>Terminal preview — integration pending</b></td></tr>
-</table>
+
 
 > **Simulation only:** ChronosMatch is an educational project. It does not connect to a live exchange or execute real financial transactions. The React terminal is currently a visual preview; the FastAPI backend is available separately.
 
 ## What It Does
 
-- **Price–time priority:** better prices match first; orders at the same price follow FIFO order.
+- **Priceâ€“time priority:** better prices match first; orders at the same price follow FIFO order.
 - **Limit order matching:** simulated BUY and SELL orders interact through an in-memory order book.
 - **Partial fills and cancellations:** unfilled quantities can remain open until matched or cancelled.
 - **Trade records:** executed matches can be inspected and analyzed.
@@ -53,7 +50,7 @@ flowchart TD
 
 | Layer | Tools |
 |---|---|
-| Matching engine | Python, price–time priority, order-book data structures |
+| Matching engine | Python, priceâ€“time priority, order-book data structures |
 | API | FastAPI, Pydantic, Uvicorn |
 | Frontend | React, Vite, JavaScript, CSS, Three.js / React Three Fiber |
 | Visualization | Streamlit |
@@ -143,8 +140,21 @@ npm.cmd run build
 
 <div align="center">
 
-**CHRONOSMATCH · BUILT TO EXPLORE THE LOGIC BEHIND EVERY MATCH**
+**CHRONOSMATCH Â· BUILT TO EXPLORE THE LOGIC BEHIND EVERY MATCH**
 
 Created by [Aayushi Suryawanshi](https://github.com/aayuabcd)
 
 </div>
+
+## Professional Trading Dashboard
+
+A modern React trading terminal integrated with the ChronosMatch Python matching engine.
+
+### Trading Dashboard & Analytics
+
+![Trading Dashboard and Analytics](docs/screenshots/trading-analytics.png)
+
+### Trade Blotter & Order Book
+
+![Trade Blotter and Order Book](docs/screenshots/trade-blotter.png)
+
