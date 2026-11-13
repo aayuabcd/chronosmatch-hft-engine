@@ -57,3 +57,35 @@ reports/generated/
 # Keep sample data and documentation tracked
 !data/sample/
 !data/sample/README.md
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node.js
+node_modules/
+dist/
+.vite/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Temporary files and backups
+*.zip
+*_backup*
+*_before_*
+*_cinematic_saved*
+README_backup*.md
+README_before*.md
+Downloads/
+README_Package_Extracted/
+
+# Editor and operating system
+.vscode/
+.DS_Store
+Thumbs.db
+
