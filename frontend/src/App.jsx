@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Float } from "@react-three/drei";
 import { motion } from "framer-motion";
@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import TradingTerminal from "./TradingTerminal";
 import "./App.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -99,7 +101,11 @@ function TradingWorld() {
         camera={{ position: [0, 0, 10], fov: 50 }}
         dpr={[1, 1.5]}
       >
-        <color attach="background" args={[COLORS.background]} />
+        <color
+          attach="background"
+          args={[COLORS.background]}
+        />
+
         <fog
           attach="fog"
           args={[COLORS.background, 10, 30]}
@@ -145,7 +151,6 @@ const tickers = [
 
 function App() {
   const root = useRef(null);
-  const [showTerminal, setShowTerminal] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -183,6 +188,7 @@ function App() {
 
   return (
     <div className="cinematic-app" ref={root}>
+      {/* NAVIGATION */}
       <header className="cinematic-nav">
         <a href="#home" className="logo">
           <Activity size={24} />
@@ -200,6 +206,7 @@ function App() {
         </span>
       </header>
 
+      {/* HOMEPAGE */}
       <section className="cinematic-hero" id="home">
         <TradingWorld />
 
@@ -258,6 +265,7 @@ function App() {
         </a>
       </section>
 
+      {/* MOVING TICKER */}
       <div className="ticker-track">
         <div className="ticker-content">
           {[...tickers, ...tickers].map((item, i) => (
@@ -268,6 +276,7 @@ function App() {
         </div>
       </div>
 
+      {/* MATCHING ENGINE */}
       <section className="story-section" id="engine">
         <div className="story-index reveal">
           01 — THE ARCHITECTURE
@@ -331,11 +340,13 @@ function App() {
 
             <small>
               Illustrative example, not a live order execution.
+              Use the trading terminal below to place orders.
             </small>
           </div>
         </div>
       </section>
 
+      {/* EXPERIENCE */}
       <section
         className="experience-section"
         id="experience"
@@ -356,7 +367,7 @@ function App() {
           <p>
             Explore order-book depth, market imbalance,
             execution history, and performance metrics
-            through the existing ChronosMatch trading simulation.
+            through the ChronosMatch trading simulation.
           </p>
 
           <div className="experience-grid">
@@ -383,6 +394,7 @@ function App() {
         </div>
       </section>
 
+      {/* FUNCTIONAL TRADING TERMINAL */}
       <section
         className="terminal-section"
         id="terminal"
@@ -396,57 +408,29 @@ function App() {
         </h2>
 
         <p className="reveal">
-          The React trading terminal is the next integration
-          stage. The existing Streamlit application remains
-          available separately.
+          Experience the ChronosMatch trading engine.
+          Submit simulated BUY and SELL orders, explore
+          market depth, and monitor executed trades.
         </p>
 
         <div className="terminal-preview reveal">
           <div className="terminal-top">
             <span>
-              CHRONOSMATCH / TERMINAL PREVIEW
+              CHRONOSMATCH / TRADING TERMINAL
             </span>
 
             <span>
-              ● FRONTEND MODE
+              ● SIMULATION MODE
             </span>
           </div>
 
           <div className="terminal-content">
-            <div className="terminal-placeholder">
-              <Activity size={52} />
-
-              <h3>ENGINE CONNECTION PENDING</h3>
-
-              <p>
-                The Python matching engine will be connected
-                to this React frontend through a backend API.
-              </p>
-
-              <button
-                onClick={() =>
-                  setShowTerminal(!showTerminal)
-                }
-              >
-                {showTerminal
-                  ? "HIDE DEVELOPMENT STATUS"
-                  : "VIEW DEVELOPMENT STATUS"}
-              </button>
-
-              {showTerminal && (
-                <div className="dev-status">
-                  React frontend: in development
-                  <br />
-                  Python matching engine: existing
-                  <br />
-                  API integration: pending
-                </div>
-              )}
-            </div>
+            <TradingTerminal />
           </div>
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="cinematic-footer">
         <span>CHRONOSMATCH © 2026</span>
 
